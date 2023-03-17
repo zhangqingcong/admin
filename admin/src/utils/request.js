@@ -1,27 +1,27 @@
 import axios from 'axios'
-import {MessageBox,Message} from 'element-ui'
+import { Message } from 'element-ui'
 import store from '@/store'
-import { getToken } from '@/utils/auth'
 import SettingMer from '@/utils/settingMer'
-import {isPhone} from "@/libs/wechat"
+import { isPhone } from '@/libs/wechat';
+import { config } from '@vue/test-utils';
 
 const service = axios.create({
   baseURL: SettingMer.apiBaseURL,
-  timeout: 60000// 过期时间
+  timeout: 60000 
 })
 
 service.interceptors.request.use(
-  config => {
-    // 发送请求之前做的
+  config =>{
+    //请求之前先鉴权
     const token = !store.getters.token?sessionStorage.getItem('token'):store.getters.token;
     if(token){
       config.headers['Authori-zation'] = token
     }
     if(/get/i.test(config.method)){
       config.params = config.params || {}
-      config.params.temp = Data.parse(new Date()) / 1000
+      config.params.temp = Date.parse(new Date()) /1000
     }
-    return config 
+    return config
   },
   error => {
     return Promise.reject(error)
@@ -37,17 +37,17 @@ service.interceptors.response.use(
     }else if(res.code === 403){
       Message.error('没有权限访问。');
     }
-    if(res.code !== 200 && res.code !==401){
-      if(isPhone()){
+    if(res.code !== 200 && res.code !== 401){
+      if(isPhone){
         return Promise.reject(res || 'Error')
       }
       Message({
         message: res.message || 'Error',
         type: 'error',
-        duration: 5* 1000
+        duration: 5 * 1000
       })
       return Promise.reject()
-    }else{
+    }else {
       return res.data
     }
   },
@@ -55,11 +55,10 @@ service.interceptors.response.use(
     Message({
       message: error.message,
       type: 'error',
-      duration: 5*1000
+      duration: 5 * 1000
     })
     return Promise.reject(error)
   }
 )
 
 export default service
-

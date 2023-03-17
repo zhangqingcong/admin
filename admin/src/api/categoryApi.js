@@ -1,10 +1,8 @@
 import request from '@/utils/request'
-
 /**
  * 新增分类
- * @param pram
  */
-export function addCategroy(pram) {
+export function addCategroy(pram){
   const data = {
     extra: pram.extra,
     name: pram.name,
@@ -23,9 +21,8 @@ export function addCategroy(pram) {
 
 /**
  * 分类详情
- * @param pram
  */
-export function infoCategroy(pram) {
+export function infoCategroy(pram){
   const data = {
     id: pram.id
   }
@@ -35,14 +32,12 @@ export function infoCategroy(pram) {
     params: data
   })
 }
-
 /**
  * 删除分类
- * @param pram
  */
-export function deleteCategroy(pram) {
+export function deleteCatrgroy(pram){
   const data = {
-    id: pram.id
+    id: data.id
   }
   return request({
     url: '/admin/category/delete',
@@ -53,9 +48,8 @@ export function deleteCategroy(pram) {
 
 /**
  * 分类列表
- * @param pram
  */
-export function listCategroy(pram) {
+export function listCategroy(pram){
   const data = {
     limit: pram.limit,
     name: pram.name,
@@ -63,7 +57,6 @@ export function listCategroy(pram) {
     pid: pram.pid,
     status: pram.status,
     type: pram.type
-
   }
   return request({
     url: '/admin/category/list',
@@ -74,9 +67,8 @@ export function listCategroy(pram) {
 
 /**
  * 分类数据tree数据
- * @param pram
  */
-export function treeCategroy(pram) {
+export function treeCategroy(pram){
   const data = {
     type: pram.type,
     status: pram.status,
@@ -91,15 +83,14 @@ export function treeCategroy(pram) {
 
 /**
  * 更新分类
- * @param pram
  */
-export function updateCategroy(pram) {
+export function updateCategroy(pram){
   const data = {
     extra: pram.extra,
     name: pram.name,
     pid: pram.pid,
     sort: pram.sort,
-    status: pram.status,
+    status: pram.type,
     type: pram.type,
     url: pram.url,
     id: pram.id
@@ -112,10 +103,9 @@ export function updateCategroy(pram) {
 }
 
 /**
- * 根据id集合查询对应分类列表
- * @param pram
+ * 根绝id集合查询对应分类列表
  */
-export function categroyByIds(pram) {
+export function categroyByIds(pram){
   const data = {
     ids: pram.ids
   }
@@ -128,20 +118,15 @@ export function categroyByIds(pram) {
 
 /**
  * 修改 显示关闭状态
- * @param pram
  */
-export function categroyUpdateStatus(id) {
+export function categroyUpdateStatus(id){
   return request({
     url: `/admin/category/updateStatus/${id}`,
     method: 'GET'
   })
 }
 
-/**
- * 文章详情
- * @param pram
- */
-export function articleInfoApi(params) {
+export function articleInfoApi(params){
   return request({
     url: `/admin/article/info`,
     method: 'GET',
