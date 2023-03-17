@@ -1,10 +1,9 @@
 import request from '@/utils/request'
 
 /**
- * 查询待生成代码列表
- * @param pram
+ * 查询待生成码列表
  */
-export function getCodegenList(pram) {
+export function getCodegenList(pram){
   const data = {
     page: pram.page,
     limit: pram.limit,
@@ -16,4 +15,3 @@ export function getCodegenList(pram) {
     params: data
   })
 }
-
