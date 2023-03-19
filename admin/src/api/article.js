@@ -5,6 +5,7 @@ import request from '@/utils/request'
  * @param pram
  */
 export function bindProduct(pram) {
+  //对象初始化器创建对象
   const data = {
     id: pram.id,
     productId: pram.productId
