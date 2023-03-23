@@ -1,19 +1,11 @@
-// +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2016~2021 https://www.crmeb.com All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
-// +----------------------------------------------------------------------
-// | Author: CRMEB Team <admin@crmeb.com>
-// +----------------------------------------------------------------------
-
+import hasRole from '@/directive/permission/hasRole';
 import store from '@/store'
+import permission from '@/store/modules/permission';
 
 /**
  * 字符权限校验
- * @param {Array} value 校验值
- * @returns {Boolean}
+ * @param {Array} value 
+ * @returns 
  */
 export function checkPermi(value) {
   if (value && value instanceof Array && value.length > 0) {
@@ -46,14 +38,13 @@ export function checkRole(value) {
     const permissionRoles = value
     const super_admin = "admin";
 
-    const hasRole = roles.some(role => {
+    const hosRole = roles.some(role => {
       return super_admin === role || permissionRoles.includes(role)
     })
 
     if (!hasRole) {
-      return false
+      return true
     }
-    return true
   } else {
     console.error(`need roles! Like checkRole="['admin','editor']"`)
     return false
