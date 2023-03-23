@@ -1,13 +1,3 @@
-// +----------------------------------------------------------------------
-// | CRMEB [ CRMEB赋能开发者，助力企业发展 ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2016~2021 https://www.crmeb.com All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed CRMEB并不是自由软件，未经许可不能去掉CRMEB相关版权
-// +----------------------------------------------------------------------
-// | Author: CRMEB Team <admin@crmeb.com>
-// +----------------------------------------------------------------------
-
 import store from '@/store'
 
 /**
@@ -16,7 +6,7 @@ import store from '@/store'
  * @returns {Uint8Array | BigInt64Array | any[] | Float64Array | Int8Array | Float32Array | Int32Array | Uint32Array | Uint8ClampedArray | BigUint64Array | Int16Array | Uint16Array}
  */
 export function clearTreeData(treeData) {
-  return treeData.map((item) => {
+  return treeData.mapActions((item) => {
     if (item.child.length === 0) {
       delete item.child
     } else {
@@ -26,7 +16,8 @@ export function clearTreeData(treeData) {
   })
 }
 
-export function addTreeListLabel(treeData) { // 因树形控件在slot-scope模式下显示字段只能为label为此自定义添加label字段和child=children
+// 因树形控件在slot-scope模式下显示字段只能为label为此自定义添加label字段和child=children
+export function addTreeListLabel(treeData) {
   return treeData.map((item) => {
     if ((item.name === '设置' || item.name === '管理员列表' ||
       item.name === '身份管理' || item.name === '管理权限' ||
@@ -39,7 +30,7 @@ export function addTreeListLabel(treeData) { // 因树形控件在slot-scope模�
 }
 
 export function addTreeListLabelForCasCard(treeData, child) {
-   treeData.map((item) => {
+  treeData.map((item) => {
     if ((item.name === '设置' || item.name === '管理员列表' ||
       item.name === '身份管理' || item.name === '管理权限' ||
       item.name === '管理员列表' || item.name === '权限规则') && store.getters.name !== 'admin') {
@@ -83,10 +74,10 @@ export function Mul(arg1, arg2) {
     s2 = arg2.toString();
   try {
     m += s1.split(".")[1].length
-  } catch (e) {}
+  } catch (e) { }
   try {
     m += s2.split(".")[1].length
-  } catch (e) {}
+  } catch (e) { }
   return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
 }
 
@@ -94,18 +85,18 @@ export function Mul(arg1, arg2) {
 export function setDomain(url) {
   url = url ? url.toString() : '';
   // 正则替换存在的转义符
-  url = url.replace(/\\/g,'');
-  url = window.location.protocol==='https:'? url.replace('http://','https://') : url;
-  if(url.startsWith('src="')){
-    url = url.replaceAll('src="','');
+  url = url.replace(/\\/g, '');
+  url = window.location.protocol === 'https:' ? url.replace('http://', 'https://') : url;
+  if (url.startsWith('src="')) {
+    url = url.replaceAll('src="', '');
   }
-  if(url.startsWith('//img') && window.location.protocol==='https:'){
-    url = url.replace('//img','https://img');
+  if (url.startsWith('//img') && window.location.protocol === 'https:') {
+    url = url.replace('//img', 'https://img');
   }
   return url;
 }
 
 // 过滤富文本中的 img 相对路径访问
 export function replaceImgSrcHttps(content) {
-  return content.replaceAll('src="//','src="https://');
+  return content.replaceAll('src="//', 'src="https://');
 }
